@@ -100,13 +100,18 @@ Route:: get('/model', function(){
 
 
 
-Route::prefix('admin')->namespace('Admin')->group(function()
+Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function()
 {   
-    Route::prefix('stores')->group(function(){
-        Route:: get('/', 'StoreController@index');
-        Route:: get('/create', 'StoreController@create');
-        Route:: post('/store', 'StoreController@store');
+    Route::prefix('stores')->name('stores.')->group(function(){
+        Route:: get('/', 'StoreController@index')->name('index');
+        Route:: get('/create', 'StoreController@create')->name('create');
+        Route:: post('/store', 'StoreController@store')->name('store');
+        Route:: get('/edit/{store}', 'StoreController@edit')->name('edit');
+        Route:: post('/update/{store}', 'StoreController@update')->name('update');
+        Route:: get('/destroy/{store}', 'StoreController@destroy')->name('destroy');
     });
+    
+    Route::resource('products', 'ProductController');
 });
 
 /*
