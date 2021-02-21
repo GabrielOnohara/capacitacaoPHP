@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('content')
 
-    <h1>Criar Loja</h1>
+    <h1>Criar Produto</h1>
 
-    <form action="{{route('admin.stores.store')}}" method="post">
+    <form action="{{route('admin.products.store')}}" method="post">
 
-        <input type="hidden" name="_token" value="{{csrf_token()}}">
+        @csrf
         
         <div class="form-group">
-            <label>Nome da Loja</label>
+            <label>Nome do Produto</label>
             <input type="text" name="name" class="form-control">
         </div>
 
@@ -18,13 +18,13 @@
         </div>
 
         <div class="form-group">
-            <label>Telefone</label>
-            <input type="text" name="phone" class="form-control">
+            <label>Conteúdo</label>
+            <textarea name="body" id="" cols="30" rows="10" class="form-control"></textarea>
         </div>
 
         <div>
-            <label>Celular/WhatsApp</label>
-            <input type="text" name="mobile_phone" class="form-control">
+            <label>Preço</label>
+            <input type="text" name="price" class="form-control">
         </div>
 
         <div class="form-group">
@@ -33,16 +33,16 @@
         </div>
 
         <div class="form-group">
-            <label>Usuário</label>
-            <select name="user" class="form-control">
-                @foreach($users as $user)
-                <option value="{{$user->id}}">{{$user->name}}</option>
+            <label>Lojas</label>
+            <select name="store" class="form-control">
+                @foreach($stores as $store)
+                <option value="{{$store->id}}">{{$store->name}}</option>
                 @endforeach
             </select>
         </div>
 
         <div>   
-            <button type="submit" class="btn btn-lg btn-success">Criar Loja</button>
+            <button type="submit" class="btn btn-lg btn-success">Criar Produto</button>
         </div>
     </form>
 

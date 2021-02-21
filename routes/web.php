@@ -13,7 +13,11 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+Route::get('/home', function () {
+    return view('welcome');
+})->name('home');
+
 
 Route:: get('/model', function(){
     //$products = \App\Product::all(); // select * from products
@@ -100,18 +104,20 @@ Route:: get('/model', function(){
 
 
 
-Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function()
-{   
-    Route::prefix('stores')->name('stores.')->group(function(){
-        Route:: get('/', 'StoreController@index')->name('index');
-        Route:: get('/create', 'StoreController@create')->name('create');
-        Route:: post('/store', 'StoreController@store')->name('store');
-        Route:: get('/edit/{store}', 'StoreController@edit')->name('edit');
-        Route:: post('/update/{store}', 'StoreController@update')->name('update');
-        Route:: get('/destroy/{store}', 'StoreController@destroy')->name('destroy');
+Route::group(['middleware' => ['auth']], function(){
+    Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function()
+    {   
+        // Route::prefix('stores')->name('stores.')->group(function(){
+        //     Route:: get('/', 'StoreController@index')->name('index');
+        //     Route:: get('/create', 'StoreController@create')->name('create');
+        //     Route:: post('/store', 'StoreController@store')->name('store');
+        //     Route:: get('/edit/{store}', 'StoreController@edit')->name('edit');
+        //     Route:: post('/update/{store}', 'StoreController@update')->name('update');
+        //     Route:: get('/destroy/{store}', 'StoreController@destroy')->name('destroy');
+        // });
+        Route::resource('stores', 'StoreController');
+        Route::resource('products', 'ProductController');
     });
-    
-    Route::resource('products', 'ProductController');
 });
 
 /*
@@ -123,3 +129,6 @@ Route::patch
 Route::delete
 Route::options
 */
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');
