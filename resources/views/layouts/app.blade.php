@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MarketPlace L6</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css;" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-bottom:40px;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-bottom:40px">
     <a class="navbar-brand" href="{{route('home')}}">MarketPlace L6</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -17,11 +17,15 @@
     @auth
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item @if(request()->is('admin/stores')) active @endif">
+            <li class="nav-item @if(request()->is('admin/stores*')) active @endif">
                 <a class="nav-link" href="{{route('admin.stores.index')}}">Lojas <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item @if(request()->is('admin/products')) active @endif">
+            <li class="nav-item @if(request()->is('admin/products*')) active @endif">
                 <a class="nav-link" href="{{route('admin.products.index')}}">Produtos</a>
+            </li>
+            </li>
+            <li class="nav-item @if(request()->is('admin/categories*')) active @endif">
+                <a class="nav-link" href="{{route('admin.categories.index')}}">Categorias</a>
             </li>
         </ul>
         <div class=" my-2 my-lg-0">

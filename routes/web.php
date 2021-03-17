@@ -11,12 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-Route::get('/home', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('product/{slug}', 'HomeController@single')->name('product.single');
+
+Route::prefix('cart')->name('cart.')->group(function(){
+    Route::get('/', 'CartController@index')->name('index');
+    Route::post('add', 'CartController@add')->name('add');
+    Route::get('remove/{slug}', 'CartController@remove')->name('remove');
+    Route::get('cancel', 'CartController@cancel')->name('cancel');
+});
 
 
 Route:: get('/model', function(){
@@ -102,7 +105,10 @@ Route:: get('/model', function(){
     return $product->categories;
 });
 
-
+Route::prefix('checkout')->name('checkout.')->group(function(){
+    Route::get('/', 'CheckoutController@index')->name('index');
+    Route::post('proccess', 'CheckoutController@proccess')->name('proccess');
+});
 
 Route::group(['middleware' => ['auth']], function(){
     Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function()
@@ -117,6 +123,8 @@ Route::group(['middleware' => ['auth']], function(){
         // });
         Route::resource('stores', 'StoreController');
         Route::resource('products', 'ProductController');
+        Route::resource('categories', 'CategoryController');
+        Route::post('photos/remove', 'ProductPhotoController@removePhoto')->name('photo.remove');
     });
 });
 

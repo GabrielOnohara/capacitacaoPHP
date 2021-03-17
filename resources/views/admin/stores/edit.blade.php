@@ -1,36 +1,62 @@
 @extends('layouts.app')
 @section('content')
 
-    <h1>Criar Loja</h1>
+    <h1>Atualizar Loja</h1>
 
-    <form action="{{route('admin.stores.update', ['store' => $store->id])}}" method="post">
+    <form action="{{route('admin.stores.update', ['store' => $store->id])}}" method="post" enctype="multipart/form-data">
 
         @csrf
         @method('PUT')
         
         <div class="form-group">
             <label>Nome da Loja</label>
-            <input type="text" name="name" class="form-control" value="{{$store->name}}">
+            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"  value="{{$store->name}}">
+            @error('name')
+                <div class="invalid-feedback">
+                {{$message}}
+                </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label>Descrição</label>
-            <input type="text" name="description" class="form-control" value="{{$store->description}}">
+            <input type="text" name="description" class="form-control @error('description') is-invalid @enderror"  value="{{$store->description}}">
+            @error('description')
+                <div class="invalid-feedback">
+                {{$message}}
+                </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label>Telefone</label>
-            <input type="text" name="phone" class="form-control" value="{{$store->phone}}">
+            <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror"  value="{{$store->phone}}">
+            @error('phone')
+                <div class="invalid-feedback">
+                {{$message}}
+                </div>
+            @enderror
         </div>
 
         <div>
             <label>Celular/WhatsApp</label>
-            <input type="text" name="mobile_phone" class="form-control" value="{{$store->mobile_phone}}">
+            <input type="text" name="mobile_phone" class="form-control @error('mobile_phone') is-invalid @enderror"  value="{{$store->mobile_phone}}">
+            @error('mobile_phone')
+                <div class="invalid-feedback">
+                {{$message}}
+                </div>
+            @enderror
         </div>
 
-        <div class="form-group">
-            <label>Slug</label>
-            <input type="text" name="slug" class="form-control" value="{{$store->slug}}">
+        <div class="form-group" >
+            <label>Logo da Loja</label>
+            <img src="{{asset('storage/' . $store->logo)}}" class="img-fluid img-responsive">
+            <input type="file" name="logo" class="form-control @error('logo') is-invalid @enderror" >
+            @error('logo')
+                <div class="invalid-feedback">
+                {{$message}}
+                </div>
+            @enderror
         </div>
 
         <div>   
